@@ -8,6 +8,7 @@
 // Requires
 const readline = require('readline-sync');
 const color = require('colors');
+const random = require('random');
 //-------------------------------------------------------
 
 //Escolha de idioma
@@ -31,20 +32,61 @@ function Start() {
 function pt_br() {
 
     // Boas-Vindas
-    console.log("===========================================".cyan)
+    console.log("===========================================".cyan);
     console.log("") //Separador
     console.log("     Bem-vindo a calculadora.js v0.2".blue.bold);
     console.log("") //Sepadador
-    console.log("===========================================".cyan)
+    console.log("===========================================".cyan);
     //---------------------------------------------------------
 
-    //Variaveis1
+    //Menu
+    console.log("=====MENU=====".blue.black);
+    console.log("[ 1 ] Operacaoes basicas.     [ 2 ] Gerar numeros aleatorios.");
+    var menuSelect = readline.question("Escolha uma opção: ");
+    //--------------------------------------------------------------------------
+    //Condições menu
+    if (menuSelect == "1") {
+        operations();
+    }
+    else if (menuSelect == "2") {
+        randomGerate();
+    }
+    else {
+        console.log("Voce digitou um valor invalido.".red);
+        Start();
+    }
+    //----------------------------------------------------------------
+
+    function randomGerate(min, max, randomNumber) {
+        //Variaveis
+        min = readline.questionInt("Digite o valor minimo: ".yellow);
+        max = readline.questionInt("Digite o valor maximo: ".yellow);
+        randomNumber = random.int(min, max)
+        //-------------------------------------------------------
+
+        //Apresentar valor
+        console.log("O valor gerado é: " + randomNumber);
+        //-------------------------------------
+
+        //Gerar novamente
+        if(readline.keyInYN("Deseja outro numero?".yellow)) {
+            //Caso Y
+            randomGerate();
+        }
+        else {
+            pt_br();
+        }
+    }
+
+    //Oerações basicas
+    function operations() {
+        //Variaveis1
     var nun1 = readline.questionInt("Digite um numero: ".yellow);
     var nun2 = readline.questionInt("Digite outro numero: ".yellow);
     var result;
     //-----------------------------------------------------------
 
-    console.log("================================================================================".gray)
+    console.log("================================================================================".gray);
 
     //Variaveis2
     console.log("[ + ] Somar.     [ - ] Subtrair.\n[ * ] Multiplicar.     [ / ] Dividir.".cyan);
@@ -83,6 +125,9 @@ function pt_br() {
         process.exit("Encerrado . . .")
     }
     //--------------------------------------------------------------------
+    }
+    //-------------------------------------------------------------------------
+    
 }
 
 function en_us() {
