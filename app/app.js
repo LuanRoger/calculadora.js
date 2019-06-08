@@ -3,52 +3,35 @@
 *  - Amarelo: Inputs
 *  - Vermelho e Bold: Erros
 *  - Ciano: Escolhas
-*  - Cinza: Separadores*/
+*  - Cinza: Separadores
+*/
 
 // Requires
 const readline = require('readline-sync');
 const color = require('colors');
-const random = require('random');
 //-------------------------------------------------------
 
-//Escolha de idioma
+//Inicio
 function Start() {
-    console.log("[ pt ] Portugues(Brasil)     [ en ] Ingle".cyan);
-    const idioma = readline.question("Selecione o idioma: ".yellow);
-    
-    if (idioma == "pt") {
-        pt_br();
-    }
-    else if (idioma == "en") {
-        en_us();
-    }
-    else {
-        console.log("Voce digitou um valor invalido.").red;
-        Start();
-    }
-}
-//----------------------------------------------------------------------
-
-function pt_br() {
 
     // Boas-Vindas
-    console.log("===========================================".cyan);
+    console.log("===========================================".gray);
     console.log("") //Separador
-    console.log("     Bem-vindo a calculadora.js v0.2".blue.bold);
+    console.log("     Bem-vindo a calculadora.js v0.3".blue.bold);
     console.log("") //Sepadador
-    console.log("===========================================".cyan);
+    console.log("===========================================".gray);
     //---------------------------------------------------------
 
     //Menu
-    console.log("=====MENU=====".blue.black);
-    console.log("[ 1 ] Operacaoes basicas.     [ 2 ] Gerar numeros aleatorios.");
-    var menuSelect = readline.question("Escolha uma opção: ");
+    console.log("          =====MENU=====".blue.black);
+    console.log("[ 1 ] Operacaoes basicas.     [ 2 ] Gerar numeros aleatorios.".cyan);
+    var menuSelect = readline.questionInt("Escolha uma opcao: ".yellow);
     //--------------------------------------------------------------------------
     //Condições menu
-    if (menuSelect == "1") {
-        operations();
+    if (menuSelect == 1) {
+        opetacoesBasicas();
     }
-    else if (menuSelect == "2") {
+    else if (menuSelect == 2) {
         randomGerate();
     }
     else {
@@ -57,133 +40,78 @@ function pt_br() {
     }
     //----------------------------------------------------------------
 
-    function randomGerate(min, max, randomNumber) {
+    function randomGerate(min, max, randomResult) {
+        //Aviso
+        console.log("ATENCAO: essa funcao esta em fase de teste\nPode haver alguns bugs.".red.bold);
+        //-----------------------------------------------------------
         //Variaveis
         min = readline.questionInt("Digite o valor minimo: ".yellow);
         max = readline.questionInt("Digite o valor maximo: ".yellow);
-        randomNumber = random.int(min, max)
+        randomResult = Math.floor(Math.random() * (max - min + 1) - min);
         //-------------------------------------------------------
-
-        //Apresentar valor
-        console.log("O valor gerado é: " + randomNumber);
-        //-------------------------------------
-
-        //Gerar novamente
-        if(readline.keyInYN("Deseja outro numero?".yellow)) {
-            //Caso Y
+        
+        //Analizador
+        if(min > max) {
+            console.log("Voce digitou um valor invalido.".red);
             randomGerate();
         }
-        else {
-            pt_br();
-        }
+        //--------------------------------------------------------
+
+        console.log("================================================================================".gray)
+
+        //Apresentar valor
+        console.log("O valor gerado é: ".blue.bold + randomResult);
+        //-------------------------------------
     }
 
     //Oerações basicas
-    function operations() {
-        //Variaveis1
-    var nun1 = readline.questionInt("Digite um numero: ".yellow);
-    var nun2 = readline.questionInt("Digite outro numero: ".yellow);
-    var result;
-    //-----------------------------------------------------------
+    function opetacoesBasicas() {
+            //Variaveis1
+        var nun1 = readline.questionInt("Digite um numero: ".yellow);
+        var nun2 = readline.questionInt("Digite outro numero: ".yellow);
+        var result;
+        //-----------------------------------------------------------
 
-    console.log("================================================================================".gray);
+        console.log("================================================================================".gray);
 
-    //Variaveis2
-    console.log("[ + ] Somar.     [ - ] Subtrair.\n[ * ] Multiplicar.     [ / ] Dividir.".cyan);
-    var operration = readline.question("Qual operacao voce que fazer?".yellow);
-    //-----------------------------------------------------------------------------------------------
+        //Variaveis2
+        console.log("[ + ] Somar.     [ - ] Subtrair.\n[ * ] Multiplicar.     [ / ] Dividir.".cyan);
+        var operration = readline.question("Qual operacao voce que fazer?".yellow);
+        //-----------------------------------------------------------------------------------------------
 
-    // Condições/Manupulações
-    if (operration == "+") {
-        result = nun1 + nun2;
-    }
-    else if (operration == "-") {
-        result = nun1 - nun2;
-    }
-    else if (operration == "*") {
-        result = nun1 * nun2;
-    }
-    else if (operration == "/") {
-        result = nun1 / nun2;
-    }
-    else {
-        console.log("Voce digitou um valor invalido.").red;
-        Start();
-    }
-    //-----------------------------------------------------------------
+        // Condições/Manupulações
+        if (operration == "+") {
+            result = nun1 + nun2;
+        }
+        else if (operration == "-") {
+            result = nun1 - nun2;
+        }
+        else if (operration == "*") {
+            result = nun1 * nun2;
+        }
+        else if (operration == "/") {
+            result = nun1 / nun2;
+        }
+        else {
+            console.log("Voce digitou um valor invalido.".red.bold);
+            Start();
+        }
+        //-----------------------------------------------------------------
 
-    //Apresentação do resultado final
-    console.log("O resultado da operacao e: ".blue.bold + result);
-    //----------------------------------------------------------------
+        //Apresentação do resultado final
+        console.log("O resultado da operacao e: ".blue.bold + result);
+        //----------------------------------------------------------------
 
+    }
     //Continuar
     if(readline.keyInYN("Deseja fazer outra operacao?".yellow)) {
         //Caso Y
-        pt_br();
-    }
-    else {
-        process.exit("Encerrado . . .")
-    }
-    //--------------------------------------------------------------------
-    }
-    //-------------------------------------------------------------------------
-    
-}
-
-function en_us() {
-
-    // Boas-Vindas
-    console.log("===========================================".cyan)
-    console.log("") //Separador
-    console.log("     Welcome to calculator.js".blue.bold);
-    console.log("") //Sepadador
-    console.log("===========================================".cyan)
-    //---------------------------------------------------------
-
-    //Variaveis1
-    var nun1 = readline.questionInt("Enter a number: ".yellow);
-    var nun2 = readline.questionInt("Enter another number: ".yellow);
-    var result;
-    //-----------------------------------------------------------
-
-    console.log("================================================================================".gray)
-
-    //Variaveis2
-    console.log("[ + ] Add.     [ - ] Subtract.\n[ * ] Multiply.     [ / ] Divide.".cyan);
-    var operration = readline.question("What operation do you have to do?".yellow);
-    //-----------------------------------------------------------------------------------------------
-
-    // Condições/Manupulações
-    if (operration == "+") {
-        result = nun1 + nun2;
-    }
-    else if (operration == "-") {
-        result = nun1 - nun2;
-    }
-    else if (operration == "*") {
-        result = nun1 * nun2;
-    }
-    else if (operration == "/") {
-        result = nun1 / nun2;
-    }
-    else {
-        console.log("You have entered an invalid value.").red;
         Start();
     }
-    //-----------------------------------------------------------------
-
-    //Apresentação do resultado final
-    console.log("The result of the operation is: ".blue.bold + result);
-    //----------------------------------------------------------------
-
-    //Continuar
-    if(readline.keyInYN("Do you want to do another operation?".yellow)) {
-        //Caso Y
-        pt_br();
-    }
     else {
-        process.exit("Closed. . .")
+        process.exit()
     }
-    //--------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+    
 }
 Start();
